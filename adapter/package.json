@@ -1,0 +1,17 @@
+{
+  "name": "data-source",
+  "version": "1.0.0",
+  "description": "Node.js on Docker",
+  "author": "Augustine O <austyns.iyke@gmail.com>",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.16.1",
+    "mongodb": "^3.2.7",
+    "mongoose": "^5.6.1",
+    "node-cron": "^2.0.3",
+    "request": "^2.88.0"
+  }
+}

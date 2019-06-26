@@ -1,0 +1,35 @@
+version: '3'
+services:
+  db:
+    # using MongoDB 
+    image: mongo:3.4-xenial
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - 27017:27017
+  app:
+    # this is a Node Express app 
+    build: ./app
+    ports:
+      - 5000:8080
+    links:
+      - db
+    depends_on:
+      - db
+  adapter:
+    # the service that gets the data from endpoints and logs in the db
+    build: ./adapter    
+    links:
+      - db
+    depends_on:
+      - db
+    ports:
+      - 3128:3128
+      - 9229:9229
+    command:
+      # TODO For dev, remove
+      - node
+      - "--inspect-brk=0.0.0.0:9229"
+      - "." 
+
