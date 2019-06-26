@@ -16,7 +16,6 @@ db.once('open', function() {
   // we're connected!
   console.log('connected')
 });
-console.log(db)
 
 var symbolsSchema = new mongoose.Schema({
   _id:String,
@@ -26,9 +25,22 @@ var symbolsSchema = new mongoose.Schema({
   type: Boolean,
   iexId: String
 });
+// time Series
+var seriesSchema = new mongoose.Schema({
+  _id:String,
+  open: String,
+  close: String,
+  low: String,
+  high: String,
+  volume: String,
+  symbol: String,
+  iTime: String
+});
+
+
 // compile schema to model
 var symbolsMoldel = mongoose.model('symbols', symbolsSchema, 'symbolestore');
-
+var seriesMoldel = mongoose.model('series', seriesSchema, 'seriesstore');
 
 // Constants
 const PORT = 8080;
@@ -45,6 +57,12 @@ app.get('/', (req, res) => {
 app.get('/symbols', (req, res) => {
 	symbolsMoldel.find({}).exec(function(err, symbols){
 		res.send(symbols);
+	});
+});
+
+app.get('/series/:symbol', (req, res) => {
+	seriesMoldel.find({symbol:req.params.symbol}).limit(30).exec(function(err, series){
+		res.send(series);
 	});
 });
 

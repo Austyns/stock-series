@@ -1,114 +1,42 @@
 [
 	{
-	"symbol": "A",
-	"name": "Agilent Technologies Inc.",
-	"date": "2019-06-24",
-	"isEnabled": true,
-	"type": "cs",
-	"iexId": "2"
+		"symbol": "AAPL",
+		"name": "APPLE Inc",
+		"date": "2019-06-24",
+		"isEnabled": true,
+		"type": "cs",
+		"iexId": "12042"
 	},
 	{
-	"symbol": "AA",
-	"name": "Alcoa Corporation",
-	"date": "2019-06-24",
-	"isEnabled": true,
-	"type": "cs",
-	"iexId": "12042"
+		"symbol": "AAC",
+		"name": "AAC Holdings Inc.",
+		"date": "2019-06-24",
+		"isEnabled": true,
+		"type": "cs",
+		"iexId": "9169"
 	},
 	{
-	"symbol": "AAAU",
-	"name": "Perth Mint Physical Gold",
-	"date": "2019-06-24",
-	"isEnabled": true,
-	"type": "N/A",
-	"iexId": "14924"
+		"symbol": "ANET",
+		"name": "Arista Networks Inc.",
+		"date": "2019-06-24",
+		"isEnabled": true,
+		"type": "cs",
+		"iexId": "8509"
 	},
 	{
-	"symbol": "AABA",
-	"name": "Altaba Inc.",
-	"date": "2019-06-24",
-	"isEnabled": true,
-	"type": "cs",
-	"iexId": "7653"
+		"symbol": "GOOG",
+		"name": "Alphabet Inc.",
+		"date": "2019-06-24",
+		"isEnabled": true,
+		"type": "cs",
+		"iexId": "10656"
 	},
 	{
-	"symbol": "AAC",
-	"name": "AAC Holdings Inc.",
-	"date": "2019-06-24",
-	"isEnabled": true,
-	"type": "cs",
-	"iexId": "9169"
-	},
-	{
-	"symbol": "ANDAR",
-	"name": "Andina Acquisition Corp. III Right",
-	"date": "2019-06-24",
-	"isEnabled": true,
-	"type": "N/A",
-	"iexId": "15477"
-	},
-	{
-	"symbol": "ANDAU",
-	"name": "Andina Acquisition Corp. III Unit",
-	"date": "2019-06-24",
-	"isEnabled": true,
-	"type": "su",
-	"iexId": "15258"
-	},
-	{
-	"symbol": "ANDAW",
-	"name": "Andina Acquisition Corp. III Warrant",
-	"date": "2019-06-24",
-	"isEnabled": true,
-	"type": "N/A",
-	"iexId": "15485"
-	},
-	{
-	"symbol": "ANET",
-	"name": "Arista Networks Inc.",
-	"date": "2019-06-24",
-	"isEnabled": true,
-	"type": "cs",
-	"iexId": "8509"
-	},
-	{
-	"symbol": "ANF",
-	"name": "Abercrombie & Fitch Company",
-	"date": "2019-06-24",
-	"isEnabled": true,
-	"type": "cs",
-	"iexId": "336"
-	},
-	{
-	"symbol": "ANFI",
-	"name": "Amira Nature Foods Ltd",
-	"date": "2019-06-24",
-	"isEnabled": true,
-	"type": "cs",
-	"iexId": "337"
-	},
-	{
-	"symbol": "GOOG",
-	"name": "Alphabet Inc.",
-	"date": "2019-06-24",
-	"isEnabled": true,
-	"type": "cs",
-	"iexId": "10656"
-	},
-	{
-	"symbol": "GOOGL",
-	"name": "Alphabet Inc.",
-	"date": "2019-06-24",
-	"isEnabled": true,
-	"type": "cs",
-	"iexId": "10657"
-	},
-	{
-	"symbol": "GOOS",
-	"name": "Canada Goose Holdings Inc. Subordinate",
-	"date": "2019-06-24",
-	"isEnabled": true,
-	"type": "cs",
-	"iexId": "12463"
+		"symbol": "GOOS",
+		"name": "Canada Goose Holdings Inc. Subordinate",
+		"date": "2019-06-24",
+		"isEnabled": true,
+		"type": "cs",
+		"iexId": "12463"
 	}
 ]

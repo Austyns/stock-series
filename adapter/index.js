@@ -13,12 +13,15 @@ let symbols = JSON.parse(fs.readFileSync('symbols.json', 'utf8'));
 // Use mongoose method to connect to the Server
 mongoose.connect(url, {useNewUrlParser: true});
 const db = mongoose.connection;
+mongoose.Promise = global.Promise;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  // we're connected!
   console.log('connected')
 });
+
+// DataBase Schemas
+// symbols
 var symbolsSchema = new mongoose.Schema({
   _id:String,
   symbol: String,
@@ -27,54 +30,80 @@ var symbolsSchema = new mongoose.Schema({
   type: Boolean,
   iexId: String
 });
-for (var i = 0; i < symbols.length; i++) {
-  console.log(symbols[i])
-}
+
+// time Series
+var seriesSchema = new mongoose.Schema({
+  _id:String,
+  open: String,
+  close: String,
+  low: String,
+  high: String,
+  volume: String,
+  symbol: String,
+  iTime: String
+});
 
 // compile schema to model
 var symbolsMoldel = mongoose.model('symbols', symbolsSchema, 'symbolestore');
+var seriesMoldel = mongoose.model('series', seriesSchema, 'seriesstore');
 
-// save multiple documents to the collection referenced by Book Model
+// save all symbols to the collection
 symbolsMoldel.collection.insertMany(symbols, function (err, docs) {
   if (err){ 
     return console.error(err);
   } else {
-    // console.log("Multiple documents inserted to Collection");
+    console.log("documents inserted");
   }
 });
 
-// on init, create create the symbols collection and load the symbols from symbols.json
 
-// for each of the symbols make a rquest and get their time series and save to db
-
+// get stock time series for a given symbol
 function getStockSeries(symbol='AAPL') {
-  const httpOptions = {
-    hostname: 'alphavantage.co',
-    port: 443,
-    path: '/query?function=TIME_SERIES_INTRADAY&symbol='+symbol+'&interval=5min&apikey=xx',
-    method: 'GET'
-  }
 
-  request('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol='+symbol+'&interval=5min&apikey=xx', (error, response, body) => {
+  request('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol='+symbol+'&interval=5min&apikey=xxq', (error, response, body) => {
     console.error('error:', error); // Print the error if one occurred
-    console.log('statusCode:', response && response.statusCode);
-    console.log('body:', JSON.parse(body) );
     let res = JSON.parse(body)['Time Series (5min)'];
-    // console.log(res['Time Series (5min)'])
     let timeSeries = [];
     for (var event in res) {
       if (res.hasOwnProperty(event)) {
         let evt = res[event];
-        evt['_id'] = event;
+        evt['_id'] = event+symbol;
+        evt['low'] = evt['3. low'];
+        evt['high'] = evt['2. high'];
+        evt['open'] = evt['1. open'];
+        evt['close'] = evt['4. close'];
+        evt['iTime'] = event;
+        evt['volume'] = evt['5. volume'];
+        evt['symbol'] = symbol;
+
+        delete evt['3. low']
+        delete evt['2. high']
+        delete evt['4. close']
+        delete evt['5. volume']
+        delete evt['1. open']
         timeSeries.push(evt);
       }
     }
-    console.log(timeSeries);
+    console.log(timeSeries);    
+    // save all timeSeries to the collection
+    seriesMoldel.collection.insertMany(timeSeries, { ordered: false }, function (err, docs) {
+      if (err){ 
+        return console.error(err);
+      } else {
+        console.log("documents inserted");
+        return true;
+      }
+    });
 
   });
 }
 
-cron.schedule('*/10 * * * * *', () => {
+cron.schedule('*/45 * * * * *', () => { 
+  // This schedues a 45 seconds ( IDEAL '*/5 * * * *'==> for five mins Interval since source refreshes after 5 mins )
   console.log('running a task every 10 Secs');
-  getStockSeries()
+  for (var i = 0; i < symbols.length; i++) {
+    let symbol = symbols[i]['symbol'];
+    // console.log(symbol);
+    getStockSeries(symbol);
+  }
 });
